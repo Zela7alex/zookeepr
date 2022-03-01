@@ -1,19 +1,22 @@
 //1st) require the module
 const express = require('express')
 
+// Telling app to use this specific port
+const PORT= process.env.PORT || 3001
+
 //2nd) instantiate the server (app = the server)
 const app = express()
 
 //3rd) Chain the listen method to server so that it makes the server listen
 app.listen(3001, () => {
-    console.log(`API server now on port 3001!`)
+    console.log(`API server now on port ${PORT}!`)
 });
 
 //4th)--- Let add to the server so it can return data to requests----
 //4th) START by requiring the data
 const { animals } = require('./data/animals')
 
-//5th) This ***FUNCTION will take in req.query as an argument and filter through the animals accordingly.
+//6th) This ***FUNCTION will take in req.query as an argument and filter through the animals accordingly.
 function filterByQuery(query, animalsArray) {
     let personalityTraitsArray = [] // Gives the possibility for multiple trait searches
     let filteredResults = animalsArray
