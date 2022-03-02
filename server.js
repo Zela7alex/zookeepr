@@ -9,7 +9,7 @@ const app = express()
 
 //3rd) Chain the listen method to server so that it makes the server listen
 app.listen(3001, () => {
-    console.log(`API server now on port ${PORT}!`)
+    console.log(`API server now on port ${PORT}!`) // Port is the new const PORT for heroku
 });
 
 //4th)--- Let add to the server so it can return data to requests----
