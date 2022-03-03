@@ -2,13 +2,13 @@
 const express = require('express')
 
 // Telling app to use this specific port
-const PORT= process.env.PORT || 3001
+const PORT = process.env.PORT || 3001
 
 //2nd) instantiate the server (app = the server)
 const app = express()
 
 //3rd) Chain the listen method to server so that it makes the server listen
-app.listen(3001, () => {
+app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`) // Port is the new const PORT for heroku
 });
 
@@ -47,13 +47,22 @@ function filterByQuery(query, animalsArray) {
     }
     return filteredResults
 };
+//7th) This *** Function takes in the id and array of animals and returns a single animal object.
+function findById(id, animalsArray) {
+    const result = animalsArray.filter(animal => animal.id === id)[0]
+};
 
-
-//5th) Add the route that the client will have to fetch from. 
+//5th) Add the route that the client will have to fetch from to gett animals. 
 app.get('/api/animals', (req, res) => {
     let results = animals
-     if (req.query) {
-         results = filterByQuery(req.query, results)// Accessing the query object on req and calling tje filterByQuery() function
-     } 
+    if (req.query) {
+        results = filterByQuery(req.query, results)// Accessing the query object on req and calling tje filterByQuery() function
+    }
     res.json(results)
+});
+
+//6th) Add the route to be able to get a specific animal
+app.get('/api/animals/:id', (req, res) => {
+    const result = findById(req.params.id, animals)
+    res.json(result)
 });
