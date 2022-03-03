@@ -50,6 +50,7 @@ function filterByQuery(query, animalsArray) {
 //7th) This *** Function takes in the id and array of animals and returns a single animal object.
 function findById(id, animalsArray) {
     const result = animalsArray.filter(animal => animal.id === id)[0]
+    return result
 };
 
 //5th) Add the route that the client will have to fetch from to gett animals. 
@@ -61,8 +62,12 @@ app.get('/api/animals', (req, res) => {
     res.json(results)
 });
 
-//6th) Add the route to be able to get a specific animal
+//6th) Add the route to be able to get a specific animal.(REMEMBER param routes must come after )
 app.get('/api/animals/:id', (req, res) => {
     const result = findById(req.params.id, animals)
-    res.json(result)
+    if (result) {
+        res.json(result)
+    } else {
+        res.send(404) // Sends 404 error if resource "animal" could not be found 
+    }
 });
